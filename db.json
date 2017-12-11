@@ -1,12 +1,12 @@
 {
-  "Todos": [
+  "todos": [
     {
-      "id": 1,
-      "todo": "Check Todo"
+      "text": "New Todo",
+      "id": 1
     },
     {
-      "id": 2,
-      "todo": "New Todo"
+      "text": "test",
+      "id": 2
     }
   ]
 }

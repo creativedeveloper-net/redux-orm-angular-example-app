@@ -1,0 +1,17 @@
+<mat-form-field>
+  <input
+    matInput
+    placeholder="Todo"
+    #newTodo
+    (blur)="addTodo(newTodo.value); newTodo.value=''"
+  >
+</mat-form-field>
+<button mat-raised-button color="primary">Add</button>
+<mat-list>
+    <mat-list-item *ngFor="let todo of todos">
+      {{todo.text}}
+      <button mat-icon-button (click)="deleteTodo(todo)">
+          <mat-icon>delete</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-list>
