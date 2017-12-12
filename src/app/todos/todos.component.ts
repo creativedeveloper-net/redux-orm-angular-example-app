@@ -1,7 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { select, select$ } from '@angular-redux/store';
+import { Observable } from 'rxjs/Observable';
+import { pipe, values, sortBy, prop } from 'ramda';
 
 import { Todo } from './shared/todo.model';
-import { TodoService } from './shared/todo.service';
+import { TodoActions } from './shared/todo.actions'
+// import { TodoService } from './shared/todo.service';
+
+export const sortTodos = (todosDictionary$: Observable<{}>) =>
+  todosDictionary$.map(
+    pipe(
+      values,
+      sortBy(prop('text'))));
 
 @Component({
   selector: 'app-todos',
@@ -10,33 +20,44 @@ import { TodoService } from './shared/todo.service';
 })
 export class TodosComponent implements OnInit {
 
-  todos: Todo[];
+  //todos: Todo[];
+  @select$(['todos', 'items'], sortTodos)
+  readonly todos$: Observable<Todo[]>;
 
-  constructor(private todoService: TodoService) { }
+  @select(['todos', 'loading'])
+  readonly loading$: Observable<boolean>;
+
+  @select(['todos', 'error'])
+  readonly error$: Observable<any>;
+
+  // constructor(private todoService: TodoService) { }
+  constructor(private todoActions: TodoActions) {
+    todoActions.loadTodos();
+  }
 
   ngOnInit() {
-    this.getTodos();
+    //this.getTodos();
   }
 
   getTodos(): void {
-    this.todoService.getTodos()
-    .subscribe(todos => this.todos = todos);
+    // this.todoService.getTodos()
+    // .subscribe(todos => this.todos = todos);
   }
 
   addTodo(text: string): void {
-    text = text.trim();
-    if (!text) {
-      return;
-    }
-    this.todoService.addTodo({ text } as Todo)
-      .subscribe(todo => {
-        this.todos.push(todo);
-      });
+    // text = text.trim();
+    // if (!text) {
+    //   return;
+    // }
+    // this.todoService.addTodo({ text } as Todo)
+    //   .subscribe(todo => {
+    //     this.todos.push(todo);
+    //   });
   }
 
   deleteTodo(todo: Todo): void {
-    this.todos = this.todos.filter(t => t !== todo);
-    this.todoService.deleteTodo(todo).subscribe();
+    // this.todos = this.todos.filter(t => t !== todo);
+    // this.todoService.deleteTodo(todo).subscribe();
   }
 
 }

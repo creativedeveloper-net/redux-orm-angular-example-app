@@ -7,9 +7,6 @@ export interface TodoAction {
   payload?: Todo[];
   error?: boolean;
 }
-//interface MetaData { metaData: string; } // TODO not needed?
-//type Payload = Todo[];
-//export type TodoAction = FluxdStandarAction<Payload, MetaData>;
 
 @Injectable()
 export class TodoActions {

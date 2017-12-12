@@ -4,9 +4,13 @@ import { MatListModule } from '@angular/material/list';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
+import { StoreModule } from '../store/store.module';
 import { TodosComponent } from './todos.component';
 import { TodoService } from './shared/todo.service';
+import { TodoActions } from './shared/todo.actions';
+import { TodoEpics } from './shared/todo.epics';
 
 @NgModule({
   imports: [
@@ -14,7 +18,9 @@ import { TodoService } from './shared/todo.service';
     MatListModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatProgressSpinnerModule,
+    StoreModule
   ],
   declarations: [
     TodosComponent
@@ -23,7 +29,9 @@ import { TodoService } from './shared/todo.service';
     TodosComponent
   ],
   providers: [
-    TodoService
+    TodoService,
+    TodoActions,
+    TodoEpics
   ]
 })
 export class TodosModule { }

@@ -1,7 +1,6 @@
-// TODO code is based on https://github.com/angular-redux/example-app
 import { TodoAction, TodoActions } from './todo.actions';
 import { TodoList } from './todo.model';
-// import { indexBy, prop } from 'ramda';
+import { indexBy, prop } from 'ramda';
 import { Action } from 'redux';
 
 const TODO_INITIAL_STATE: TodoList = {
@@ -11,7 +10,7 @@ const TODO_INITIAL_STATE: TodoList = {
 };
 
 export function createTodoReducer() {
-  return function todoReducer(state = TODO_INITIAL_STATE, a: Action): TodoList {
+  return function todoReducer(state:TodoList = TODO_INITIAL_STATE, a: Action): TodoList {
 
     const action = a as TodoAction;
 
@@ -26,7 +25,7 @@ export function createTodoReducer() {
       case TodoActions.LOAD_TODOS_SUCCEEDED:
         return {
           ...state,
-          items: action.payload, // TODO indexBy(prop('id'), action.payload),
+          items: indexBy(prop('id'), action.payload),
           loading: false,
           error: null,
         };
