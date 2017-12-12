@@ -10,7 +10,7 @@ const TODO_INITIAL_STATE: TodoList = {
 };
 
 export function createTodoReducer() {
-  return function todoReducer(state:TodoList = TODO_INITIAL_STATE, a: Action): TodoList {
+  return function todoReducer(state: TodoList = TODO_INITIAL_STATE, a: Action): TodoList {
 
     const action = a as TodoAction;
 
@@ -33,6 +33,33 @@ export function createTodoReducer() {
         return {
           ...state,
           items: {},
+          loading: false,
+          error: action.error,
+        };
+      case TodoActions.ADD_TODO_STARTED:
+        return {
+          ...state,
+          ...state.items,
+          loading: true,
+          error: null,
+        };
+      case TodoActions.ADD_TODO_SUCCEEDED: {
+        const todo = action.payload;
+        const items = {
+          ...state.items,
+          [todo.id]: todo,
+        };
+        return {
+          ...state,
+          items,
+          loading: false,
+          error: null,
+        };
+      }
+      case TodoActions.ADD_TODO_FAILED:
+        return {
+          ...state,
+          ...state.items,
           loading: false,
           error: action.error,
         };

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { pipe, values, sortBy, prop } from 'ramda';
 
 import { Todo } from './shared/todo.model';
-import { TodoActions } from './shared/todo.actions'
+import { TodoActions } from './shared/todo.actions';
 // import { TodoService } from './shared/todo.service';
 
 export const sortTodos = (todosDictionary$: Observable<{}>) =>
@@ -20,7 +20,6 @@ export const sortTodos = (todosDictionary$: Observable<{}>) =>
 })
 export class TodosComponent implements OnInit {
 
-  //todos: Todo[];
   @select$(['todos', 'items'], sortTodos)
   readonly todos$: Observable<Todo[]>;
 
@@ -30,29 +29,18 @@ export class TodosComponent implements OnInit {
   @select(['todos', 'error'])
   readonly error$: Observable<any>;
 
-  // constructor(private todoService: TodoService) { }
-  constructor(private todoActions: TodoActions) {
-    todoActions.loadTodos();
-  }
+  constructor(private todoActions: TodoActions) { }
 
   ngOnInit() {
-    //this.getTodos();
-  }
-
-  getTodos(): void {
-    // this.todoService.getTodos()
-    // .subscribe(todos => this.todos = todos);
+    this.todoActions.loadTodos();
   }
 
   addTodo(text: string): void {
-    // text = text.trim();
-    // if (!text) {
-    //   return;
-    // }
-    // this.todoService.addTodo({ text } as Todo)
-    //   .subscribe(todo => {
-    //     this.todos.push(todo);
-    //   });
+    text = text.trim();
+    if (!text) {
+      return;
+    }
+    this.todoActions.addTodo({ text } as Todo);
   }
 
   deleteTodo(todo: Todo): void {

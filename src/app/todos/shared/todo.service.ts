@@ -21,7 +21,6 @@ export class TodoService {
     return this.http.get<Todo[]>(this.todosUrl).pipe(
       catchError(this.handleError('getTodos', []))
     );
-    // return this.http.get<Todo[]>(this.todosUrl);
   }
 
   addTodo (todo: Todo): Observable<Todo> {

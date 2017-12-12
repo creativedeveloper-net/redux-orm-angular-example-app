@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Epic, createEpicMiddleware } from 'redux-observable';
+import { Epic, combineEpics, createEpicMiddleware } from 'redux-observable';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -14,7 +14,8 @@ import { TodoService } from '../shared/todo.service';
 const todosNotAlreadyFetched = (state: AppState): boolean => !(
   state[TODO_STATE_NAME] &&
   state[TODO_STATE_NAME].items &&
-  Object.keys(state[TODO_STATE_NAME].items).length);
+  Object.keys(state[TODO_STATE_NAME].items).length
+);
 
 @Injectable()
 export class TodoEpics {
@@ -24,10 +25,15 @@ export class TodoEpics {
   ) {}
 
   public createEpic() {
-    return createEpicMiddleware(this.createLoadAnimalEpic());
+    return createEpicMiddleware(
+      combineEpics(
+        this.createLoadTodosEpic(),
+        this.createAddTodoEpic()
+      )
+    );
   }
 
-  private createLoadAnimalEpic(): Epic<TodoAction, AppState> {
+  private createLoadTodosEpic(): Epic<TodoAction, AppState> {
     return (action$, store) => action$
       .ofType(TodoActions.LOAD_TODOS)
       .filter(() => todosNotAlreadyFetched(store.getState()))
@@ -37,5 +43,17 @@ export class TodoEpics {
           status: '' + response.status,
         })))
         .startWith(this.todoActions.loadTodosStarted()));
+  }
+
+  private createAddTodoEpic(): Epic<TodoAction, AppState> {
+    return (action$, store) => action$
+      .ofType(TodoActions.ADD_TODO)
+      .filter(() => todosNotAlreadyFetched(store.getState()))
+      .switchMap(action => this.todoService.addTodo(action.payload)
+        .map(data => this.todoActions.addTodoSucceeded(data))
+        .catch(response => of(this.todoActions.loadTodosFailed({
+          status: '' + response.status,
+        })))
+        .startWith(this.todoActions.addTodoStarted()));
   }
 }
