@@ -5,7 +5,9 @@ Code is based on [angular-redux/example-app](https://github.com/angular-redux/ex
 
 ## Development server
 
-Run `json-server --watch --delay=1500 db.json` to start [json-server](https://github.com/typicode/json-server).
+Run `json-server --watch --delay=1500 db.json` to start [json-server](https://github.com/typicode/json-server) 
+(you need to install  json server first `install -g json-server`)
+
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
