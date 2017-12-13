@@ -1,6 +1,7 @@
 # AngularExampleApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.5.
+Code is based on [angular-redux/example-app](https://github.com/angular-redux/example-app)
 
 ## Development server
 
