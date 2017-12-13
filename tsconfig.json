@@ -15,5 +15,6 @@
       "es2017",
       "dom"
     ]
-  }
+  },
+  "include": ["src", "./node_modules/redux-orm-angular/index.ts"]
 }

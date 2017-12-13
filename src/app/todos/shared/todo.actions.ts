@@ -30,18 +30,15 @@ export class TodoActions {
     type: TodoActions.LOAD_TODOS
   });
 
-  @dispatch()
   loadTodosStarted = (): TodoAction => ({
     type: TodoActions.LOAD_TODOS_STARTED
   });
 
-  @dispatch()
   loadTodosSucceeded = (payload: Todo[]): TodoAction => ({
     type: TodoActions.LOAD_TODOS_SUCCEEDED,
     payload
   });
 
-  @dispatch()
   loadTodosFailed = (error): TodoAction => ({
     type: TodoActions.LOAD_TODOS_FAILED,
     error
@@ -53,18 +50,15 @@ export class TodoActions {
     payload
   });
 
-  @dispatch()
   addTodoStarted = (): TodoAction => ({
     type: TodoActions.ADD_TODO_STARTED
   });
 
-  @dispatch()
   addTodoSucceeded = (payload: Todo): TodoAction => ({
     type: TodoActions.ADD_TODO_SUCCEEDED,
     payload
   });
 
-  @dispatch()
   addTodoFailed = (error): TodoAction => ({
     type: TodoActions.ADD_TODO_FAILED,
     error
@@ -76,18 +70,15 @@ export class TodoActions {
     payload
   });
 
-  @dispatch()
   deleteTodoStarted = (): TodoAction => ({
     type: TodoActions.DELETE_TODO_STARTED
   });
 
-  @dispatch()
   deleteTodoSucceeded = (payload: Todo): TodoAction => ({
     type: TodoActions.DELETE_TODO_SUCCEEDED,
     payload
   });
 
-  @dispatch()
   deleteTodoFailed = (error): TodoAction => ({
     type: TodoActions.DELETE_TODO_FAILED,
     error

@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 import { NgReduxModule, NgRedux, DevToolsExtension } from '@angular-redux/store';
 
 // The top-level reducers and epics that make up our app's logic.
-import { AppState } from './store.model';
 import { rootReducer } from './store.reducers';
 import { RootEpics } from './store.epics';
+import { AppState } from './store.model';
 
 @NgModule({
   imports: [NgReduxModule],

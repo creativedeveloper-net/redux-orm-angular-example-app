@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
-import { createTodoReducer } from '../todos/shared/todo.reducer';
+import { orm } from './store.orm'
 
 // Define the global store shape by combining our application's
 // reducers together into a given structure.
 export const rootReducer = combineReducers({
-    todos: createTodoReducer()
-  });
+  orm: orm.reducer(),
+});

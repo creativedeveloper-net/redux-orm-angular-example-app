@@ -1,14 +1,17 @@
 # AngularExampleApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.5.
-Code is based on [angular-redux/example-app](https://github.com/angular-redux/example-app)
+
+Code is based on:
+ * [angular-redux/example-app](https://github.com/angular-redux/example-app)
+ * [redux-orm-angular](https://github.com/didomi/redux-orm-angular)
+ * [redux-orm](https://github.com/tommikaikkonen/redux-orm)
 
 ## Development server
 
-Run `json-server --watch --delay=1500 db.json` to start [json-server](https://github.com/typicode/json-server) 
+* Run `json-server --watch --delay=1500 db.json` to start [json-server](https://github.com/typicode/json-server) 
 (you need to install  json server first `install -g json-server`)
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+* Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 

@@ -1,16 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { select, select$ } from '@angular-redux/store';
+import { select } from '@angular-redux/store';
+import { selectData } from 'redux-orm-angular';
 import { Observable } from 'rxjs/Observable';
-import { pipe, values, sortBy, prop } from 'ramda';
 
 import { Todo } from './shared/todo.model';
+import { TodoOrm, TodoMeta } from './shared/todo.orm';
 import { TodoActions } from './shared/todo.actions';
-
-export const sortTodos = (todos$: Observable<{}>) =>
-  todos$.map(
-    pipe(
-      values,
-      sortBy(prop('text'))));
 
 @Component({
   selector: 'app-todos',
@@ -19,14 +14,11 @@ export const sortTodos = (todos$: Observable<{}>) =>
 })
 export class TodosComponent implements OnInit {
 
-  @select$(['todos', 'items'], sortTodos)
-  readonly todos$: Observable<Todo[]>;
+  @select(selectData(TodoOrm).all())
+  readonly todos$: Observable<Array<Todo>>;
 
-  @select(['todos', 'loading'])
-  readonly loading$: Observable<boolean>;
-
-  @select(['todos', 'error'])
-  readonly error$: Observable<any>;
+  @select(selectData(TodoMeta).all().filter(item => item.id === 'loading').first())
+  readonly loading$: Observable<any>;
 
   constructor(private todoActions: TodoActions) { }
 
