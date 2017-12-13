@@ -17,51 +17,67 @@ export function createTodoReducer() {
     switch (action.type) {
       case TodoActions.LOAD_TODOS_STARTED:
         return {
-          ...state,
           items: {},
           loading: true,
-          error: null,
+          error: null
         };
       case TodoActions.LOAD_TODOS_SUCCEEDED:
         return {
-          ...state,
           items: indexBy(prop('id'), action.payload),
           loading: false,
-          error: null,
+          error: null
         };
       case TodoActions.LOAD_TODOS_FAILED:
         return {
-          ...state,
           items: {},
           loading: false,
-          error: action.error,
+          error: action.error
         };
       case TodoActions.ADD_TODO_STARTED:
         return {
-          ...state,
-          ...state.items,
+          items: {...state.items},
           loading: true,
-          error: null,
+          error: null
         };
       case TodoActions.ADD_TODO_SUCCEEDED: {
         const todo = action.payload;
         const items = {
           ...state.items,
-          [todo.id]: todo,
+          [todo.id]: todo
         };
         return {
-          ...state,
           items,
           loading: false,
-          error: null,
+          error: null
         };
       }
       case TodoActions.ADD_TODO_FAILED:
         return {
-          ...state,
-          ...state.items,
+          items: {...state.items},
           loading: false,
-          error: action.error,
+          error: action.error
+        };
+      case TodoActions.DELETE_TODO_STARTED:
+        return {
+          items: {...state.items},
+          loading: true,
+          error: null
+        };
+      case TodoActions.DELETE_TODO_SUCCEEDED: {
+        const todo = action.payload;
+        const items = {...state.items};
+        delete items[todo.id];
+        return {
+          items,
+          loading: false,
+          error: null
+        };
+      }
+      case TodoActions.DELETE_TODO_FAILED:
+        return {
+          items: {...state.items},
+          loading: false,
+          error: action.error
         };
     }
 

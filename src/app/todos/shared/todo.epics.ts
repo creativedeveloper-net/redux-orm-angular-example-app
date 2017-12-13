@@ -27,13 +27,14 @@ export class TodoEpics {
   public createEpic() {
     return createEpicMiddleware(
       combineEpics(
-        this.createLoadTodosEpic(),
-        this.createAddTodoEpic()
+        this.loadTodosEpic(),
+        this.addTodoEpic(),
+        this.deleteTodoEpic()
       )
     );
   }
 
-  private createLoadTodosEpic(): Epic<TodoAction, AppState> {
+  private loadTodosEpic(): Epic<TodoAction, AppState> {
     return (action$, store) => action$
       .ofType(TodoActions.LOAD_TODOS)
       .filter(() => todosNotAlreadyFetched(store.getState()))
@@ -45,15 +46,25 @@ export class TodoEpics {
         .startWith(this.todoActions.loadTodosStarted()));
   }
 
-  private createAddTodoEpic(): Epic<TodoAction, AppState> {
+  private addTodoEpic(): Epic<TodoAction, AppState> {
     return (action$, store) => action$
       .ofType(TodoActions.ADD_TODO)
-      .filter(() => todosNotAlreadyFetched(store.getState()))
       .switchMap(action => this.todoService.addTodo(action.payload)
         .map(data => this.todoActions.addTodoSucceeded(data))
-        .catch(response => of(this.todoActions.loadTodosFailed({
+        .catch(response => of(this.todoActions.addTodoFailed({
           status: '' + response.status,
         })))
         .startWith(this.todoActions.addTodoStarted()));
+  }
+
+  private deleteTodoEpic(): Epic<TodoAction, AppState> {
+    return (action$, store) => action$
+      .ofType(TodoActions.DELETE_TODO)
+      .switchMap(action => this.todoService.deleteTodo(action.payload)
+        .map(() => this.todoActions.deleteTodoSucceeded(action.payload))
+        .catch(response => of(this.todoActions.deleteTodoFailed({
+          status: '' + response.status,
+        })))
+        .startWith(this.todoActions.deleteTodoStarted()));
   }
 }

@@ -3,7 +3,7 @@ export class Todo {
   text: string;
 }
 
-export const TODO_STATE_NAME = 'Todos';
+export const TODO_STATE_NAME = 'todos';
 
 export interface TodoList {
   items: {};

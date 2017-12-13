@@ -5,10 +5,9 @@ import { pipe, values, sortBy, prop } from 'ramda';
 
 import { Todo } from './shared/todo.model';
 import { TodoActions } from './shared/todo.actions';
-// import { TodoService } from './shared/todo.service';
 
-export const sortTodos = (todosDictionary$: Observable<{}>) =>
-  todosDictionary$.map(
+export const sortTodos = (todos$: Observable<{}>) =>
+  todos$.map(
     pipe(
       values,
       sortBy(prop('text'))));
@@ -44,8 +43,7 @@ export class TodosComponent implements OnInit {
   }
 
   deleteTodo(todo: Todo): void {
-    // this.todos = this.todos.filter(t => t !== todo);
-    // this.todoService.deleteTodo(todo).subscribe();
+    this.todoActions.deleteTodo(todo);
   }
 
 }

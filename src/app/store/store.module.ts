@@ -13,7 +13,6 @@ import { RootEpics } from './store.epics';
 })
 export class StoreModule {
   constructor(
-    // public store: any, // TODO NgRedux<AppState> it throwing error
     public store: NgRedux<AppState>,
     devTools: DevToolsExtension,
     rootEpics: RootEpics,
